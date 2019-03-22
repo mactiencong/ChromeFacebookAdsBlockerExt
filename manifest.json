@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Facebook Ads Blocker",
-  "description": "Facebook Ads Blocker",
-  "version": "1.0.0",
+  "name": "Youtube Ads Blocker",
+  "description": "Youtube Ads Blocker",
+  "version": "1.0.1",
   "author": "matico",
   "permissions": [
     "webRequest", 
@@ -15,10 +15,9 @@
   ],
   "content_scripts": [
     {
-        "matches": ["*://*.facebook.com/*"],
+        "matches": ["*://*.youtube.com/*"],
         "js": ["js/contentScript.js"],
-        "all_frames": true,
-        "run_at": "document_end"
+        "all_frames": true
     }
   ],
   "background": {
@@ -28,6 +27,6 @@
     "persistent": true
   },
   "web_accessible_resources": [
-    "data/ads_urls.json"
+    "data/*.json"
   ]
 }
