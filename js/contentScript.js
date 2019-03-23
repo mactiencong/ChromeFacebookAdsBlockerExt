@@ -1,4 +1,3 @@
-debugger;
 const url = chrome.runtime.getURL('../data/ads_selectors.json');
 fetch(url)
     .then((response) => response.json())

@@ -1,7 +1,6 @@
 chrome.webRequest.onBeforeRequest.addListener(
     function(details) {
         if(isFacebookAds(details)){
-            console.log('Blocked: ', details.url)
             return {cancel: true}
         }
     },

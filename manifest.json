@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Youtube NoAds",
-  "short_name": "Youtube NoAds",
-  "description": "Youtube NoAds",
+  "name": "Youtube NoAds Lite",
+  "short_name": "Youtube NoAds Lite",
+  "description": "Youtube NoAds Lite",
   "version": "1.0.1",
   "author": "matico",
   "permissions": [
