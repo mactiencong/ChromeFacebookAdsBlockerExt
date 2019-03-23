@@ -1,14 +1,13 @@
-chrome.webRequest.onBeforeRequest.addListener(
+browser.webRequest.onBeforeRequest.addListener(
     function(details) {
         if(isFacebookAds(details)){
-            console.log('Blocked: ', details.url)
             return {cancel: true}
         }
     },
     {urls: ["<all_urls>"]},
     ["blocking"]
 );
-const url = chrome.runtime.getURL('../data/ads_urls.json');
+const url = browser.runtime.getURL('../data/ads_urls.json');
 let ads_urls = []
 fetch(url)
     .then((response) => response.json())
