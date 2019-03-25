@@ -1,32 +1,19 @@
-function enableSlientMode(){
-    // mercurymessagesCountValue
-    let mercurymessages = document.getElementById('mercurymessagesCountValue')
-    if(mercurymessages) mercurymessages.classList.add('hidden_elem')
+const url = chrome.runtime.getURL('../data/ads_selectors.json');
+fetch(url)
+    .then((response) => response.json())
+    .then((adsClasses) => {
+        removeAdsClasses(adsClasses)
+    });
 
-    // requestsCountValue
-    let requestsCount = document.getElementById('requestsCountValue')
-    if(requestsCount) requestsCount.classList.add('hidden_elem')
-
-    // notificationsCountValue
-    let notificationsCount = document.getElementById('notificationsCountValue')
-    if(notificationsCount) notificationsCount.classList.add('hidden_elem')
-
-    //　ChatTabsPagelet
-    let pageletDock = document.getElementById('pagelet_dock')
-    if(pageletDock) pageletDock.style.display = 'none'
+function removeAdsClasses(adsClasses){
+    adsClasses.forEach(elementTag => {
+        removeElement(elementTag)
+    });
 }
 
-function disableSlientMode(){
-    //　ChatTabsPagelet
-    let pageletDock = document.getElementById('pagelet_dock')
-    if(pageletDock) pageletDock.style.display = ''
+function removeElement(elementTag){
+    const adsElements = document.querySelectorAll(elementTag);
+    adsElements.forEach(function(element) {
+        element.remove();
+    });
 }
-
-chrome.runtime.onMessage.addListener((request, sender, response) => {
-    if (request.message == "FBSM_ENABLE") {
-        enableSlientMode()
-    } else if(request.message == "FBSM_DISABLE"){
-        disableSlientMode()
-    }
-    return true
-})
