@@ -3,10 +3,8 @@ let adsUrlPatterns = []
 function loadAdsUrlPatterns(){
   const url = chrome.runtime.getURL('../data/adsUrlPatterns.json')
   return fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-        return data
-    })
+    .then(response => response.json())
+    .then(patterns => patterns)
 }
 
 function start(){
@@ -45,7 +43,7 @@ function reload(tab){
 }
 
 function reloadAllYoutubeTab(){
-  chrome.tabs.query({url: "https://www.youtube.com/*"}, tabs => {
+  chrome.tabs.query({url: "*://*.youtube.com/*"}, tabs => {
       tabs.forEach(tab => {
           reload(tab)
       })

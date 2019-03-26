@@ -3,12 +3,11 @@
   "name": "Youtube NoAds Lite",
   "short_name": "Youtube NoAds Lite",
   "description": "Youtube NoAds Lite",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "author": "matico",
   "permissions": [
     "webRequest", 
     "webRequestBlocking",
-    "background",
     "webNavigation",
     "<all_urls>"
   ],
