@@ -9,6 +9,7 @@
     "webRequest", 
     "webRequestBlocking",
     "background",
+    "webNavigation",
     "<all_urls>"
   ],
   "content_scripts": [
@@ -26,5 +27,8 @@
   },
   "web_accessible_resources": [
     "data/*.json"
-  ]
+  ],
+  "browser_action":{
+    "default_icon": "logo.png"
+  }
 }

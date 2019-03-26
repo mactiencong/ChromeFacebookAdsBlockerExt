@@ -1,24 +1,55 @@
-chrome.webRequest.onBeforeRequest.addListener(
-    function(details) {
-        if(isFacebookAds(details)){
-            return {cancel: true}
-        }
-    },
-    {urls: ["<all_urls>"]},
-    ["blocking"]
-);
-const url = chrome.runtime.getURL('../data/ads_urls.json');
-let ads_urls = []
-fetch(url)
+let adsUrlPatterns = []
+
+function loadAdsUrlPatterns(){
+  const url = chrome.runtime.getURL('../data/adsUrlPatterns.json')
+  return fetch(url)
     .then((response) => response.json())
     .then((data) => {
-        ads_urls = data
-    });
-function isFacebookAds(details){
-    for (let index = 0; index < ads_urls.length; index++) {
-        const urlPattern = ads_urls[index]
-        const isFacebookAdsUrl = details.url.indexOf(urlPattern) !== -1
-        if(isFacebookAdsUrl) return true
+        return data
+    })
+}
+
+function start(){
+  loadAdsUrlPatterns().then(data => {
+    adsUrlPatterns = data
+    startBlock()
+    reloadAllYoutubeTab()
+  })
+}
+
+function startBlock(){
+  chrome.webRequest.onBeforeRequest.addListener(
+    blockListener,
+    {urls: ["<all_urls>"]},
+    ["blocking"]
+  )
+}
+
+function isAds(details){
+    for (let index = 0; index < adsUrlPatterns.length; index++) {
+        const adsUrlPattern = adsUrlPatterns[index]
+        const isAdsUrl = details.url.indexOf(adsUrlPattern) !== -1
+        if(isAdsUrl) return true
     }
     return false
 }
+
+function blockListener(details) {
+  if(isAds(details)){
+      return {cancel: true}
+  }
+}
+
+function reload(tab){
+  chrome.tabs.reload(tab.id)
+}
+
+function reloadAllYoutubeTab(){
+  chrome.tabs.query({url: "https://www.youtube.com/*"}, tabs => {
+      tabs.forEach(tab => {
+          reload(tab)
+      })
+  })
+}
+
+start()
